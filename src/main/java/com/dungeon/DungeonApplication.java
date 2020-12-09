@@ -1,4 +1,4 @@
-package com.example.dungeon;
+package com.dungeon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
