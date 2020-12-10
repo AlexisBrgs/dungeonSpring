@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -24,36 +25,32 @@ public class HeroDaoImp implements HeroDao {
     }
 
     @Override
-    public Hero findById(int id) {
+    public Optional<Hero> findById(int id) {
+        Optional<Hero> heroOptional = Optional.empty();
         for (Hero hero : heroes) {
             if (hero.getId() == id) {
-                return hero;
+                heroOptional = Optional.of(hero);
             }
         }
-        return null;
+        return heroOptional;
     }
 
     @Override
     public Hero save(Hero hero) {
-
-        //creer condition try catch ou objet optionnel de hero
-
-       Hero heroToUpdate = findById(hero.getId());
-       if (heroToUpdate != null){
-           heroes.set(heroes.indexOf(heroToUpdate),hero);
-       }
+        Optional<Hero> heroToUpdate = findById(hero.getId());
+        heroToUpdate.ifPresent(value -> heroes.set(heroes.indexOf(value), hero));
         heroes.add(hero);
         return hero;
     }
 
     @Override
     public Boolean deleteById(int id) {
-        Hero heroToDestroy = findById(id);
-        if ( heroToDestroy != null) {
-            heroes.remove( heroToDestroy);
+        Optional<Hero> heroToDestroy = findById(id);
+
+        if (heroToDestroy.isPresent()) {
+            heroes.remove(heroToDestroy.get());
             return true;
         }
         return false;
     }
-
 }
