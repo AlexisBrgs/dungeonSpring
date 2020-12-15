@@ -14,6 +14,10 @@ public class Hero {
         this.name = name;
         this.type = type;
     }
+    public Hero(String name) {
+        this.name = name;
+
+    }
 
     public int getId() {
         return id;
