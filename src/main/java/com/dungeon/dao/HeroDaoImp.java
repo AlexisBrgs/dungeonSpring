@@ -38,12 +38,12 @@ public class HeroDaoImp implements HeroDao {
     public Hero save(Hero hero) {
         Optional<Hero> heroToUpdate = findById(hero.getId());
         heroToUpdate.ifPresent(value -> heroes.set(heroes.indexOf(value), hero));
-        if (heroToUpdate.isEmpty()){
-      int counter = findAll().get(findAll().size()-1).getId();
-      counter++;
-      hero.setId(counter);
+        if (heroToUpdate.isEmpty()) {
+            int counter = findAll().get(findAll().size() - 1).getId();
+            counter++;
+            hero.setId(counter);
+            heroes.add(hero);
         }
-        heroes.add(hero);
         return hero;
     }
 
